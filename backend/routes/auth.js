@@ -30,8 +30,7 @@ router.post(
 
       const { email, password } = req.body;
 
-      // Check user exists with timeout
-      const user = await User.findOne({ email }).select('+password').timeout(3000);
+      const user = await User.findOne({ email }).select('+password');
       if (!user || !user.isActive) {
         return res.status(401).json({
           success: false,
@@ -39,7 +38,6 @@ router.post(
         });
       }
 
-      // Check password
       const isMatch = await user.matchPassword(password);
       if (!isMatch) {
         return res.status(401).json({
@@ -48,7 +46,6 @@ router.post(
         });
       }
 
-      // Update last login
       user.lastLogin = new Date();
       await user.save({ validateBeforeSave: false });
 

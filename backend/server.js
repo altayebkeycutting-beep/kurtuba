@@ -23,6 +23,7 @@ const sitemapRoutes = require('./routes/sitemap');
 connectDB();
 
 const app = express();
+app.set('trust proxy', 1);
 
 // ── Security Middleware ────────────────────────────────────────────────────
 app.use(helmet({
@@ -62,7 +63,7 @@ app.use(cors({
 
 // ── General Rate Limiting ──────────────────────────────────────────────────
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 200,
   message: { success: false, message: 'Too many requests, please try again later.' },
 });
@@ -115,7 +116,7 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // ── Start Server ──────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5005;
+const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`\n🚀 Server running on port ${PORT}`);
   console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
@@ -124,7 +125,6 @@ const server = app.listen(PORT, () => {
   console.log(`🤖 Robots: http://localhost:${PORT}/robots.txt\n`);
 });
 
-// Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.error('❌ Unhandled Rejection:', err.message);
   server.close(() => process.exit(1));
