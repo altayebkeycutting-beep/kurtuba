@@ -14,7 +14,12 @@ export default function BlogSection() {
     blogAPI
       .getAll({ limit: 3, page: 1 })
       .then((res) => {
-        setPosts(res.data.data);
+        const items = Array.isArray(res?.data?.data)
+          ? res.data.data
+          : Array.isArray(res?.data)
+            ? res.data
+            : [];
+        setPosts(items);
         setError(null);
       })
       .catch((err) => {
