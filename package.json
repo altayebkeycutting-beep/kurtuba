@@ -1,0 +1,19 @@
+{
+  "name": "keyshop-website",
+  "version": "1.0.0",
+  "description": "KeyShop UAE — Full-Stack MERN Website with SEO Admin Panel",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build",
+    "seed": "cd backend && npm run seed",
+    "start": "cd backend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
