@@ -1,5 +1,10 @@
 {
   "rewrites": [
+    { "source": "/sitemap.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap.xml" },
+    { "source": "/sitemap-pages.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap-pages.xml" },
+    { "source": "/sitemap-blogs.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap-blogs.xml" },
+    { "source": "/sitemap-services.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap-services.xml" },
+    { "source": "/robots.txt", "destination": "https://kurtuba-backend.onrender.com/robots.txt" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
