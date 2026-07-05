@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SITE_NAME = 'Kurtuba Locksmith Ajman';
-const SITE_URL  = import.meta.env.VITE_SITE_URL || 'https://www.kurtubalocksmith.com';
+const SITE_URL  = import.meta.env.VITE_SITE_URL || 'https://locksmithajman.com';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 export default function SEOHead({

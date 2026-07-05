@@ -8,6 +8,9 @@ const rateLimit = require('express-rate-limit');
 
 const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/auth');
+const { bootstrapAppData } = require('./utils/bootstrap');
+const User = require('./models/User');
+const Blog = require('./models/Blog');
 
 // Route imports
 const authRoutes = require('./routes/auth');
@@ -20,7 +23,17 @@ const adminRoutes = require('./routes/admin');
 const sitemapRoutes = require('./routes/sitemap');
 
 // Connect to MongoDB
-connectDB();
+connectDB()
+  .then(async () => {
+    try {
+      await bootstrapAppData({ User, Blog });
+    } catch (bootstrapError) {
+      console.error('Bootstrap warning:', bootstrapError.message);
+    }
+  })
+  .catch((err) => {
+    console.error('Database connection failed during startup:', err.message);
+  });
 
 const app = express();
 app.set('trust proxy', 1);
