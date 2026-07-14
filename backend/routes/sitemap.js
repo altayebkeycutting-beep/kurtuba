@@ -3,7 +3,7 @@ const router  = express.Router();
 const Blog    = require('../models/Blog');
 const Service = require('../models/Service');
 
-const SITE_URL = process.env.SITE_URL || 'https://locksmithajman.com';
+const SITE_URL = process.env.SITE_URL || 'https://www.locksmithajman.com';
 
 const formatDate = (date) => new Date(date).toISOString().split('T')[0];
 
