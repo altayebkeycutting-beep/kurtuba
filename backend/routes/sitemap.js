@@ -3,7 +3,12 @@ const router  = express.Router();
 const Blog    = require('../models/Blog');
 const Service = require('../models/Service');
 
-const SITE_URL = process.env.SITE_URL || 'https://www.locksmithajman.com';
+const normalizeSiteUrl = (value) => {
+  const trimmed = (value || 'https://www.locksmithajman.com').trim();
+  return trimmed.replace(/^https?:\/\/(?:www\.)?locksmithajman\.com\/?$/i, 'https://www.locksmithajman.com');
+};
+
+const SITE_URL = normalizeSiteUrl(process.env.SITE_URL);
 
 const formatDate = (date) => new Date(date).toISOString().split('T')[0];
 
