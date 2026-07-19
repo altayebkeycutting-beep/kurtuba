@@ -1,10 +1,27 @@
 {
   "rewrites": [
-    { "source": "/sitemap.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap.xml" },
-    { "source": "/sitemap-pages.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap-pages.xml" },
-    { "source": "/sitemap-blogs.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap-blogs.xml" },
-    { "source": "/sitemap-services.xml", "destination": "https://kurtuba-backend.onrender.com/sitemap-services.xml" },
-    { "source": "/robots.txt", "destination": "https://kurtuba-backend.onrender.com/robots.txt" },
     { "source": "/(.*)", "destination": "/" }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/xml" }]
+    },
+    {
+      "source": "/sitemap-pages.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/xml" }]
+    },
+    {
+      "source": "/sitemap-blogs.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/xml" }]
+    },
+    {
+      "source": "/sitemap-services.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/xml" }]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [{ "key": "Content-Type", "value": "text/plain" }]
+    }
   ]
 }
