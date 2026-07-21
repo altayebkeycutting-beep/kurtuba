@@ -10,7 +10,13 @@ const normalizeSiteUrl = (value) => {
 
 const SITE_URL = normalizeSiteUrl(process.env.SITE_URL);
 
-const formatDate = (date) => new Date(date).toISOString().split('T')[0];
+const formatDate = (date = new Date()) => {
+  const value = new Date(date);
+  if (Number.isNaN(value.getTime())) {
+    return formatDate(new Date());
+  }
+  return value.toISOString().split('T')[0];
+};
 
 const buildSitemapXml = (urls) => {
   const urlEntries = urls.map(({ loc, lastmod, changefreq, priority }) => `

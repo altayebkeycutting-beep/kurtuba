@@ -15,10 +15,6 @@ dotenv.config({ override: false });
 const MONGODB_URI = process.env.MONGODB_URI;
 const SITE_URL = normalizeSiteUrl(process.env.SITE_URL || 'https://www.locksmithajman.com');
 
-if (!MONGODB_URI) {
-  throw new Error('MONGODB_URI is required to generate sitemap files. Set it in the environment before running this script.');
-}
-
 function normalizeSiteUrl(value) {
   const trimmed = String(value || '').trim();
   if (!trimmed) return 'https://www.locksmithajman.com';
@@ -96,36 +92,45 @@ async function fetchServiceUrls(db) {
 }
 
 async function main() {
-  const client = new MongoClient(MONGODB_URI);
-  await client.connect();
+  let blogUrls = [];
+  let serviceUrls = [];
+  const today = formatDate();
+  const outputDir = path.join(__dirname, 'public');
 
-  try {
-    const db = client.db();
-    const [blogUrls, serviceUrls] = await Promise.all([fetchBlogUrls(db), fetchServiceUrls(db)]);
-    const today = formatDate();
-    const outputDir = path.join(__dirname, 'public');
-
-    await fs.mkdir(outputDir, { recursive: true });
-
-    const files = [
-      { name: 'sitemap-pages.xml', content: buildSitemapXml(staticPages.map((entry) => ({ ...entry, lastmod: today })) ) },
-      { name: 'sitemap-blogs.xml', content: buildSitemapXml(blogUrls) },
-      { name: 'sitemap-services.xml', content: buildSitemapXml(serviceUrls) },
-      { name: 'sitemap.xml', content: buildSitemapIndex([
-        { loc: `${SITE_URL}/sitemap-pages.xml`, lastmod: today },
-        { loc: `${SITE_URL}/sitemap-blogs.xml`, lastmod: today },
-        { loc: `${SITE_URL}/sitemap-services.xml`, lastmod: today },
-      ]) },
-      { name: 'robots.txt', content: robotsTxt },
-    ];
-
-    await Promise.all(files.map((file) => fs.writeFile(path.join(outputDir, file.name), file.content, 'utf8')));
-
-    console.log('✔ Static sitemap files generated in frontend/public:');
-    files.forEach((file) => console.log(`  - ${file.name}`));
-  } finally {
-    await client.close();
+  if (MONGODB_URI) {
+    const client = new MongoClient(MONGODB_URI);
+    try {
+      await client.connect();
+      const db = client.db();
+      [blogUrls, serviceUrls] = await Promise.all([fetchBlogUrls(db), fetchServiceUrls(db)]);
+    } catch (error) {
+      console.warn('⚠️ Skipping dynamic sitemap generation because MongoDB is unavailable.');
+      console.warn(error.message || error);
+    } finally {
+      await client.close();
+    }
+  } else {
+    console.warn('⚠️ MONGODB_URI is not set. Blog and service sitemaps will be generated empty during build.');
   }
+
+  await fs.mkdir(outputDir, { recursive: true });
+
+  const files = [
+    { name: 'sitemap-pages.xml', content: buildSitemapXml(staticPages.map((entry) => ({ ...entry, lastmod: today })) ) },
+    { name: 'sitemap-blogs.xml', content: buildSitemapXml(blogUrls) },
+    { name: 'sitemap-services.xml', content: buildSitemapXml(serviceUrls) },
+    { name: 'sitemap.xml', content: buildSitemapIndex([
+      { loc: `${SITE_URL}/sitemap-pages.xml`, lastmod: today },
+      { loc: `${SITE_URL}/sitemap-blogs.xml`, lastmod: today },
+      { loc: `${SITE_URL}/sitemap-services.xml`, lastmod: today },
+    ]) },
+    { name: 'robots.txt', content: robotsTxt },
+  ];
+
+  await Promise.all(files.map((file) => fs.writeFile(path.join(outputDir, file.name), file.content, 'utf8')));
+
+  console.log('✔ Static sitemap files generated in frontend/public:');
+  files.forEach((file) => console.log(`  - ${file.name}`));
 }
 
 main().catch((error) => {

@@ -6,6 +6,13 @@ const morgan = require('morgan');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 
+const requiredEnv = ['MONGODB_URI', 'JWT_SECRET'];
+const missingEnv = requiredEnv.filter((key) => !process.env[key]);
+if (missingEnv.length) {
+  console.error('❌ Missing required environment variables:', missingEnv.join(', '));
+  process.exit(1);
+}
+
 const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/auth');
 const { bootstrapAppData } = require('./utils/bootstrap');

@@ -71,39 +71,6 @@ router.get('/', async (req, res) => {
 
 // ─── ADMIN ROUTES ────────────────────────────────────────────────────────────
 
-// @desc    Get single blog by slug (public)
-// @route   GET /api/blogs/:slug
-// @access  Public
-router.get('/:slug', async (req, res) => {
-  try {
-    if (mongoose.connection.readyState !== 1) {
-      return res.status(404).json({ success: false, message: 'Blog not found' });
-    }
-
-    const blog = await Blog.findOneAndUpdate(
-      { slug: req.params.slug, status: 'published' },
-      { $inc: { views: 1 } },
-      { new: true }
-    ).populate('author', 'name avatar');
-
-    if (!blog) {
-      return res.status(404).json({ success: false, message: 'Blog not found' });
-    }
-
-    const related = await Blog.find({
-      status: 'published',
-      category: blog.category,
-      _id: { $ne: blog._id },
-    })
-      .select('title slug excerpt featuredImage publishedAt readTime category')
-      .limit(3);
-
-    res.json({ success: true, data: blog, related });
-  } catch (error) {
-    res.status(404).json({ success: false, message: 'Blog not found' });
-  }
-});
-
 // @desc    Get all blogs (admin)
 // @route   GET /api/admin/blogs
 // @access  Private/Admin
@@ -146,6 +113,55 @@ router.get('/edit/:id', protect, async (req, res) => {
     res.json({ success: true, data: blog });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// @desc    Get blog categories with counts
+// @route   GET /api/blogs/meta/categories
+// @access  Public
+router.get('/meta/categories', async (req, res) => {
+  try {
+    const categories = await Blog.aggregate([
+      { $match: { status: 'published' } },
+      { $group: { _id: '$category', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+    ]);
+    res.json({ success: true, data: categories });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+// @desc    Get single blog by slug (public)
+// @route   GET /api/blogs/:slug
+// @access  Public
+router.get('/:slug', async (req, res) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(404).json({ success: false, message: 'Blog not found' });
+    }
+
+    const blog = await Blog.findOneAndUpdate(
+      { slug: req.params.slug, status: 'published' },
+      { $inc: { views: 1 } },
+      { new: true }
+    ).populate('author', 'name avatar');
+
+    if (!blog) {
+      return res.status(404).json({ success: false, message: 'Blog not found' });
+    }
+
+    const related = await Blog.find({
+      status: 'published',
+      category: blog.category,
+      _id: { $ne: blog._id },
+    })
+      .select('title slug excerpt featuredImage publishedAt readTime category')
+      .limit(3);
+
+    res.json({ success: true, data: blog, related });
+  } catch (error) {
+    res.status(404).json({ success: false, message: 'Blog not found' });
   }
 });
 

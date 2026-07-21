@@ -37,6 +37,18 @@ router.get('/featured', async (req, res) => {
   }
 });
 
+// @desc    Get all services (admin)
+// @route   GET /api/services/admin/all
+// @access  Private
+router.get('/admin/all', protect, async (req, res) => {
+  try {
+    const services = await Service.find().sort({ sortOrder: 1, createdAt: -1 });
+    res.json({ success: true, count: services.length, data: services });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
 // @desc    Get single service by slug
 // @route   GET /api/services/:slug
 // @access  Public
@@ -47,18 +59,6 @@ router.get('/:slug', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Service not found' });
     }
     res.json({ success: true, data: service });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error' });
-  }
-});
-
-// @desc    Get all services (admin)
-// @route   GET /api/services/admin/all
-// @access  Private
-router.get('/admin/all', protect, async (req, res) => {
-  try {
-    const services = await Service.find().sort({ sortOrder: 1, createdAt: -1 });
-    res.json({ success: true, count: services.length, data: services });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
   }
