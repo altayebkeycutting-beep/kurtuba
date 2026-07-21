@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Credentials: true
+Age: 79
+Cache-Control: public, max-age=1800
+Cf-Cache-Status: DYNAMIC
+Cf-Ray: a1eb64950acd492a-BOM
+Content-Type: application/xml; charset=utf-8
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: cross-origin
+Date: Tue, 21 Jul 2026 15:56:18 GMT
+Etag: W/"32c-3uMKBC/7s4tVsfIrbTvk7FHDp+I"
+Origin-Agent-Cluster: ?1
+Referrer-Policy: no-referrer
+Rndr-Id: 5e21986c-3d2f-47fc
+Server: Vercel
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Vary: Origin
+X-Content-Type-Options: nosniff
+X-Dns-Prefetch-Control: off
+X-Download-Options: noopen
+X-Frame-Options: SAMEORIGIN
+X-Permitted-Cross-Domain-Policies: none
+X-Render-Origin-Server: Render
+X-Vercel-Cache: HIT
+X-Vercel-Id: bom1::gc8rk-1784649458622-93672a857dc4
+X-Xss-Protection: 0
+Transfer-Encoding: chunked
+
