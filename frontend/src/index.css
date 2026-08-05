@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom Base Styles ─────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-gray-800;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  ::selection {
+    @apply bg-gold-400 text-dark;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-500 rounded-full;
+  }
+}
+
+/* ── Component Layer ─────────────────────────────────────────────── */
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gold-400 text-dark
+           font-semibold rounded-lg hover:bg-gold-500 transition-all duration-200
+           shadow-gold hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-gold-400
+           text-gold-400 font-semibold rounded-lg hover:bg-gold-400 hover:text-dark
+           transition-all duration-200;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-white
+           text-white font-semibold rounded-lg hover:bg-white hover:text-dark
+           transition-all duration-200;
+  }
+
+  /* Section containers */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  /* Section heading */
+  .section-badge {
+    @apply inline-block px-4 py-1.5 bg-gold-400/10 text-gold-600
+           text-sm font-semibold rounded-full uppercase tracking-wider mb-3;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold
+           text-dark leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-gray-500 text-lg mt-4 max-w-2xl;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-2xl shadow-card hover:shadow-card-hover
+           transition-all duration-300;
+  }
+
+  /* Form inputs */
+  .form-input {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-lg
+           focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent
+           transition-all duration-200 text-gray-800 bg-white
+           placeholder:text-gray-400;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1.5;
+  }
+
+  /* Key teeth decorative pattern */
+  .key-pattern {
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 10px,
+      rgba(232, 184, 75, 0.15) 10px,
+      rgba(232, 184, 75, 0.15) 20px
+    );
+  }
+
+  /* Gold gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent;
+  }
+
+  /* Admin sidebar link */
+  .admin-nav-link {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium
+           text-gray-600 hover:bg-primary-500 hover:text-white transition-all duration-200;
+  }
+
+  .admin-nav-link.active {
+    @apply bg-gold-400 text-dark;
+  }
+
+  /* Blog content styles */
+  .blog-content h2 {
+    @apply text-2xl font-display font-bold text-dark mt-8 mb-4;
+  }
+
+  .blog-content h3 {
+    @apply text-xl font-display font-semibold text-dark mt-6 mb-3;
+  }
+
+  .blog-content p {
+    @apply text-gray-700 leading-relaxed mb-4;
+  }
+
+  .blog-content ul, .blog-content ol {
+    @apply my-4 pl-6 space-y-2;
+  }
+
+  .blog-content ul li {
+    @apply list-disc text-gray-700;
+  }
+
+  .blog-content ol li {
+    @apply list-decimal text-gray-700;
+  }
+
+  .blog-content strong {
+    @apply font-semibold text-dark;
+  }
+
+  .blog-content a {
+    @apply text-gold-600 underline hover:text-gold-700;
+  }
+}
+
+/* ── Utility Layer ───────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-hero {
+    background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0f172a 100%);
+  }
+}
+
+/* ── Custom animations ───────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
