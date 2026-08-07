@@ -115,11 +115,9 @@ export default function Footer() {
                   <span className="text-sm">Ajman, United Arab Emirates</span>
                 </a>
               </li>
-              <li className="text-sm text-gray-500">
+              <li className="text-sm text-gray-500 leading-relaxed break-words">
                 🕐 Mon–Thu: 9am – 1:30pm & 4pm – 10pm<br />
-                🕐 Friday: 4pm – 11pm<br />
-                🕐 Saturday: 9am – 1:30pm & 4pm – 10pm<br />
-                🕐 Sunday: 10am – 6pm
+                🕐 Friday: 4pm – 11pm
               </li>
             </ul>
           </div>

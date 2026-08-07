@@ -34,7 +34,7 @@ const contactInfo = [
   {
     icon: FiClock,
     label: 'Opening Hours',
-    value: 'Mon–Thu: 9am–1:30pm & 4pm–10pm | Fri: 4pm–11pm | Sat: 9am–1:30pm & 4pm–10pm | Sun: 10am–6pm',
+    value: 'Mon–Thu: 9am–1:30pm & 4pm–10pm • Fri: 4pm–11pm',
     href: null,
   },
 ];
@@ -211,7 +211,7 @@ export default function Contact() {
                           {value}
                         </a>
                       ) : (
-                        <p className="text-dark font-medium text-sm">{value}</p>
+                        <p className="text-dark font-medium text-sm leading-relaxed break-words">{value}</p>
                       )}
                     </div>
                   </div>
