@@ -116,7 +116,9 @@ export default function Footer() {
                 </a>
               </li>
               <li className="text-sm text-gray-500">
-                🕐 Mon–Sat: 9am – 9pm<br />
+                🕐 Mon–Thu: 9am – 1:30pm & 4pm – 10pm<br />
+                🕐 Friday: 4pm – 11pm<br />
+                🕐 Saturday: 9am – 1:30pm & 4pm – 10pm<br />
                 🕐 Sunday: 10am – 6pm
               </li>
             </ul>

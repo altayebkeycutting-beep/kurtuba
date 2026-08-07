@@ -34,7 +34,7 @@ const reasons = [
   {
     icon: FiClock,
     title: 'Extended Hours',
-    desc: 'Open 7 days a week. Mon–Sat 9am–9pm, Sunday 10am–6pm. We\'re here when you need us.',
+    desc: 'Open 7 days a week. Mon–Thu 9am–1:30pm & 4pm–10pm, Friday 4pm–11pm, Saturday 9am–1:30pm & 4pm–10pm, Sunday 10am–6pm. We\'re here when you need us.',
     color: 'bg-orange-50 text-orange-600',
   },
 ];

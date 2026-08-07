@@ -34,7 +34,7 @@ const contactInfo = [
   {
     icon: FiClock,
     label: 'Opening Hours',
-    value: 'Mon–Sat: 9am–9pm | Sun: 10am–6pm',
+    value: 'Mon–Thu: 9am–1:30pm & 4pm–10pm | Fri: 4pm–11pm | Sat: 9am–1:30pm & 4pm–10pm | Sun: 10am–6pm',
     href: null,
   },
 ];
