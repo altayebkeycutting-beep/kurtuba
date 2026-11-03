@@ -7,6 +7,7 @@ import BlogList    from './pages/BlogList';
 import BlogDetail  from './pages/BlogDetail';
 import ServicesPage from './pages/ServicesPage';
 import GalleryPage from './pages/GalleryPage';
+import WorkshopPage from './pages/WorkshopPage';
 import AboutPage   from './pages/AboutPage';
 import NotFound    from './pages/NotFound';
 
@@ -37,6 +38,7 @@ export default function App() {
       {/* ── Public Routes ── */}
       <Route path="/"          element={<Home />} />
       <Route path="/services"  element={<ServicesPage />} />
+      <Route path="/workshop"  element={<WorkshopPage />} />
       <Route path="/gallery"   element={<GalleryPage />} />
       <Route path="/about"     element={<AboutPage />} />
       <Route path="/blog"      element={<BlogList />} />

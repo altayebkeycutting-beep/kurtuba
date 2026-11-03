@@ -6,6 +6,7 @@ import { GiKey } from 'react-icons/gi';
 const navLinks = [
   { label: 'Home',     path: '/' },
   { label: 'Services', path: '/services' },
+  { label: 'Workshop', path: '/workshop' },
   { label: 'Gallery',  path: '/gallery' },
   { label: 'About',    path: '/about' },
   { label: 'Blog',     path: '/blog' },

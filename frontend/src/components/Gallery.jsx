@@ -101,10 +101,13 @@ export default function Gallery({ limit = 8 }) {
         </div>
 
         {/* View Full Gallery CTA */}
-        <div className="text-center mt-8">
+        <div className="flex flex-wrap justify-center gap-3 text-center mt-8">
           <Link to="/gallery" className="btn-primary">
             View Full Gallery
             <FiArrowRight />
+          </Link>
+          <Link to="/workshop" className="btn-secondary">
+            Visit Workshop
           </Link>
         </div>
       </div>
