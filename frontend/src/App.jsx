@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
 
 // Public pages
 import Home        from './pages/Home';
@@ -8,6 +8,7 @@ import BlogDetail  from './pages/BlogDetail';
 import ServicesPage from './pages/ServicesPage';
 import GalleryPage from './pages/GalleryPage';
 import WorkshopPage from './pages/WorkshopPage';
+import CategoryPage from './pages/CategoryPage';
 import AboutPage   from './pages/AboutPage';
 import NotFound    from './pages/NotFound';
 
@@ -32,13 +33,29 @@ const AdminLoader = () => (
   </div>
 );
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       {/* ── Public Routes ── */}
       <Route path="/"          element={<Home />} />
       <Route path="/services"  element={<ServicesPage />} />
       <Route path="/workshop"  element={<WorkshopPage />} />
+      <Route path="/keys"      element={<CategoryPage category="keys" />} />
+      <Route path="/equipment" element={<CategoryPage category="equipment" />} />
+      <Route path="/team"      element={<CategoryPage category="team" />} />
+      <Route path="/before-after" element={<CategoryPage category="before-after" />} />
       <Route path="/gallery"   element={<GalleryPage />} />
       <Route path="/about"     element={<AboutPage />} />
       <Route path="/blog"      element={<BlogList />} />
@@ -59,8 +76,9 @@ export default function App() {
         <Route path="seo"                element={<AdminSeo />} />
       </Route>
 
-      {/* ── 404 ── */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        {/* ── 404 ── */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }

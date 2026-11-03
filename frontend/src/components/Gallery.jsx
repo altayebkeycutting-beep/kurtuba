@@ -31,6 +31,14 @@ export default function Gallery({ limit = 8 }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [lightbox, setLightbox]           = useState(null);
 
+  const categoryRouteMap = {
+    Workshop: '/workshop',
+    Keys: '/keys',
+    Equipment: '/equipment',
+    Team: '/team',
+    'Before-After': '/before-after',
+  };
+
   useEffect(() => {
     galleryAPI.getFeatured()
       .then((res) => setImages(res.data.data || []))
@@ -80,24 +88,26 @@ export default function Gallery({ limit = 8 }) {
             ? Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="aspect-square skeleton rounded-xl" />
               ))
-            : displayed.map((img) => (
-                <div key={img._id}
-                     className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group bg-gray-100"
-                     onClick={() => setLightbox(img)}>
-                  {img.imageUrl ? (
-                    <img src={img.imageUrl} alt={img.altText || img.title}
-                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                         loading="lazy" />
-                  ) : (
-                    <PlaceholderCard item={img} />
-                  )}
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/50
-                                  transition-colors duration-300 flex items-center justify-center">
-                    <FiZoomIn className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </div>
-              ))}
+            : displayed.map((img) => {
+                const route = categoryRouteMap[img.category] || '/gallery';
+
+                return (
+                  <Link key={img._id} to={route}
+                        className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group bg-gray-100 block">
+                    {img.imageUrl ? (
+                      <img src={img.imageUrl} alt={img.altText || img.title}
+                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                           loading="lazy" />
+                    ) : (
+                      <PlaceholderCard item={img} />
+                    )}
+                    <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/50
+                                    transition-colors duration-300 flex items-center justify-center">
+                      <FiZoomIn className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </Link>
+                );
+              })}
         </div>
 
         {/* View Full Gallery CTA */}
