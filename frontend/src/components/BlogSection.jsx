@@ -7,27 +7,58 @@ import { format } from 'date-fns';
 export default function BlogSection() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(null);
+  const [retryVersion, setRetryVersion] = useState(0);
 
   useEffect(() => {
-    blogAPI
-      .getAll({ limit: 3, page: 1 })
-      .then((res) => {
+    let cancelled = false;
+    let retryTimer;
+    let attempt = 0;
+    const controller = new AbortController();
+
+    const loadPosts = async () => {
+      try {
+        const res = await blogAPI.getAll(
+          { limit: 3, page: 1, summary: true },
+          { signal: controller.signal }
+        );
         const items = Array.isArray(res?.data?.data)
           ? res.data.data
           : Array.isArray(res?.data)
             ? res.data
             : [];
+        if (cancelled) return;
         setPosts(items);
         setError(null);
-      })
-      .catch((err) => {
+        setLoading(false);
+      } catch (err) {
+        if (cancelled || controller.signal.aborted) return;
+
+        const status = err.response?.status;
+        const canRetry = !status || status === 429 || status >= 500;
+        if (canRetry && attempt < 2) {
+          const delay = attempt === 0 ? 800 : 2000;
+          attempt += 1;
+          retryTimer = window.setTimeout(loadPosts, delay);
+          return;
+        }
+
         console.error('BlogSection load error:', err);
         setError('Unable to load latest articles right now.');
-      })
-      .finally(() => setLoading(false));
-  }, []);
+        setLoading(false);
+      }
+    };
+
+    setLoading(true);
+    setError(null);
+    loadPosts();
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(retryTimer);
+      controller.abort();
+    };
+  }, [retryVersion]);
 
   if (!loading && posts.length === 0) {
     return (
@@ -56,6 +87,15 @@ export default function BlogSection() {
             <p className="text-sm text-gray-500">
               Check the blog page later or publish new posts from the admin dashboard.
             </p>
+            {error && (
+              <button
+                type="button"
+                onClick={() => setRetryVersion((version) => version + 1)}
+                className="mt-5 font-semibold text-gold-600 hover:text-gold-700"
+              >
+                Try again
+              </button>
+            )}
           </div>
         </div>
       </section>

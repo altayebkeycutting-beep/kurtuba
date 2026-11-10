@@ -44,7 +44,7 @@ api.interceptors.response.use(
 
 // ── Blog API ─────────────────────────────────────────────────────
 export const blogAPI = {
-  getAll: (params) => api.get('blogs', { params }),
+  getAll: (params, config) => api.get('blogs', { ...config, params }),
   getBySlug: (slug) => api.get(`blogs/${slug}`),
   getForEdit: (id) => api.get(`blogs/edit/${id}`),
   getAllAdmin: (params) => api.get('blogs/admin/all', { params }),

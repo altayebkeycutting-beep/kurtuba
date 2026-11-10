@@ -12,20 +12,16 @@ router.get('/', async (req, res) => {
   try {
     // Check if MongoDB is connected
     if (mongoose.connection.readyState !== 1) {
-      return res.json({
-        success: true,
-        count: 0,
-        total: 0,
-        pages: 0,
-        currentPage: 1,
-        data: [],
-        message: 'Database connection unavailable',
+      return res.status(503).json({
+        success: false,
+        message: 'Blog service temporarily unavailable',
       });
     }
 
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 9;
     const skip = (page - 1) * limit;
+    const summary = req.query.summary === 'true';
     const category = req.query.category;
     const search = req.query.search;
 
@@ -39,31 +35,29 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    const total = await Blog.countDocuments(query);
-    const blogs = await Blog.find(query)
-      .populate('author', 'name')
-      .select('-content')
+    const total = summary ? null : await Blog.countDocuments(query);
+    let blogQuery = Blog.find(query)
+      .select(summary
+        ? '_id title slug excerpt featuredImage featuredImageAlt category publishedAt readTime'
+        : '-content')
       .sort({ publishedAt: -1 })
       .skip(skip)
       .limit(limit);
+    if (!summary) blogQuery = blogQuery.populate('author', 'name');
+    const blogs = await blogQuery;
 
     res.json({
       success: true,
       count: blogs.length,
       total,
-      pages: Math.ceil(total / limit),
+      pages: summary ? null : Math.ceil(total / limit),
       currentPage: page,
       data: blogs,
     });
   } catch (error) {
     console.error('Blog fetch error:', error.message);
-    res.json({
-      success: true,
-      count: 0,
-      total: 0,
-      pages: 0,
-      currentPage: 1,
-      data: [],
+    res.status(500).json({
+      success: false,
       message: 'Unable to fetch blogs',
     });
   }
