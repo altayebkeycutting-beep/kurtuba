@@ -25,16 +25,16 @@ const badges = [
 
 const slides = [
   {
-    image: '/sliderimage1.jpg',
-    alt: 'Professional key cutting and locksmith services at Kurtuba in Ajman',
-    title: 'Expert key cutting',
-    description: 'Accurate house and commercial key duplication in Ajman.',
-  },
-  {
     image: '/sliderimage2.jpg',
     alt: 'Car key duplication and programming service in Ajman, UAE',
     title: 'Car keys made easy',
     description: 'Car key duplication and programming for all makes and models.',
+  },
+  {
+    image: '/sliderimage1.jpg',
+    alt: 'Professional key cutting and locksmith services at Kurtuba in Ajman',
+    title: 'Expert key cutting',
+    description: 'Accurate house and commercial key duplication in Ajman.',
   },
   {
     image: '/sliderimage3.jpg',
@@ -71,113 +71,114 @@ function HeroSlider() {
       <div className="section-container py-5 md:py-8">
         <div
           id="hero-image-slider"
-          className="relative h-[300px] overflow-hidden rounded-2xl border border-white/15 bg-primary-800 shadow-2xl shadow-black/30 sm:h-[400px] sm:rounded-3xl lg:h-[500px]"
+          className="overflow-hidden rounded-2xl border border-white/15 bg-primary-800 shadow-2xl shadow-black/30 sm:rounded-3xl"
           role="region"
           aria-roledescription="carousel"
           aria-label="Kurtuba Locksmith services"
         >
-          {slides.map((slide, index) => {
-            const isActive = index === activeSlide;
+          <div className="relative aspect-[1672/941] overflow-hidden bg-primary-800">
+            {slides.map((slide, index) => {
+              const isActive = index === activeSlide;
 
-            return (
-              <div
-                key={slide.image}
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  isActive ? 'z-10 opacity-100' : 'z-0 opacity-0'
-                }`}
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${index + 1} of ${slides.length}: ${slide.title}`}
-                aria-hidden={!isActive}
-              >
-                {unavailableImages[slide.image] ? (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 px-6 text-center sm:px-8">
-                    <div className="max-w-xl">
-                      <GiKey className="mx-auto mb-4 text-5xl text-gold-400/80 sm:mb-5 sm:text-6xl" aria-hidden="true" />
-                      <p className="mb-2 text-2xl font-display font-bold text-white sm:text-4xl">
-                        Ajman&apos;s trusted key shop
-                      </p>
-                      <p className="text-sm leading-relaxed text-gray-300 sm:text-lg">
-                        Key cutting, car keys &amp; smart key programming from local experts.
-                      </p>
-                      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold-400 sm:mt-5">
-                        Kurtuba Locksmith · Ajman, UAE
-                      </p>
+              return (
+                <div
+                  key={slide.image}
+                  className={`absolute inset-0 transition-opacity duration-500 ${
+                    isActive ? 'z-10 opacity-100' : 'z-0 opacity-0'
+                  }`}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${index + 1} of ${slides.length}: ${slide.title}`}
+                  aria-hidden={!isActive}
+                >
+                  {unavailableImages[slide.image] ? (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 px-6 text-center sm:px-8">
+                      <div className="max-w-xl">
+                        <GiKey className="mx-auto mb-4 text-5xl text-gold-400/80 sm:mb-5 sm:text-6xl" aria-hidden="true" />
+                        <p className="mb-2 text-2xl font-display font-bold text-white sm:text-4xl">
+                          Ajman&apos;s trusted key shop
+                        </p>
+                        <p className="text-sm leading-relaxed text-gray-300 sm:text-lg">
+                          Key cutting, car keys &amp; smart key programming from local experts.
+                        </p>
+                        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold-400 sm:mt-5">
+                          Kurtuba Locksmith · Ajman, UAE
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <img
-                    src={slide.image}
-                    alt={slide.alt}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    onError={() => setUnavailableImages((images) => ({
-                      ...images,
-                      [slide.image]: true,
-                    }))}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/10" />
-                {!unavailableImages[slide.image] && (
-                  <div className="absolute bottom-16 left-5 right-5 sm:bottom-20 sm:left-8 sm:right-8">
-                    <p className="text-lg font-display font-bold text-white sm:text-2xl">
-                      {slide.title}
-                    </p>
-                    <p className="mt-1 max-w-md text-xs text-gray-200 sm:text-base">
-                      {slide.description}
-                    </p>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                  ) : (
+                    <img
+                      src={slide.image}
+                      alt={slide.alt}
+                      className="absolute inset-0 h-full w-full object-contain"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      onError={() => setUnavailableImages((images) => ({
+                        ...images,
+                        [slide.image]: true,
+                      }))}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-between p-3 sm:p-6">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setIsPlaying((playing) => !playing)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white transition hover:border-gold-400 hover:bg-gold-400 hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400 sm:h-10 sm:w-10"
-                aria-label={isPlaying ? 'Pause automatic slides' : 'Resume automatic slides'}
-                aria-controls="hero-image-slider"
-              >
-                {isPlaying ? <FiPause aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
-              </button>
-              <div className="flex items-center gap-2" aria-label="Choose a slide">
-                {slides.map((slide, index) => (
-                  <button
-                    key={slide.image}
-                    type="button"
-                    onClick={() => showSlide(index)}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === activeSlide ? 'w-8 bg-gold-400' : 'w-2.5 bg-white/60 hover:bg-white'
-                    }`}
-                    aria-label={`Show slide ${index + 1}: ${slide.title}`}
-                    aria-current={index === activeSlide ? 'true' : undefined}
-                  />
-                ))}
-              </div>
+          <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div aria-live="polite">
+              <p className="text-lg font-display font-bold text-white sm:text-2xl">
+                {slides[activeSlide].title}
+              </p>
+              <p className="mt-1 text-sm text-gray-300 sm:text-base">
+                {slides[activeSlide].description}
+              </p>
             </div>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => showSlide(activeSlide - 1)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white transition hover:border-gold-400 hover:bg-gold-400 hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400 sm:h-10 sm:w-10"
-                aria-label="Previous slide"
-                aria-controls="hero-image-slider"
-              >
-                <FiChevronLeft aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => showSlide(activeSlide + 1)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white transition hover:border-gold-400 hover:bg-gold-400 hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400 sm:h-10 sm:w-10"
-                aria-label="Next slide"
-                aria-controls="hero-image-slider"
-              >
-                <FiChevronRight aria-hidden="true" />
-              </button>
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsPlaying((playing) => !playing)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white transition hover:border-gold-400 hover:bg-gold-400 hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400 sm:h-10 sm:w-10"
+                  aria-label={isPlaying ? 'Pause automatic slides' : 'Resume automatic slides'}
+                  aria-controls="hero-image-slider"
+                >
+                  {isPlaying ? <FiPause aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
+                </button>
+                <div className="flex items-center gap-2" aria-label="Choose a slide">
+                  {slides.map((slide, index) => (
+                    <button
+                      key={slide.image}
+                      type="button"
+                      onClick={() => showSlide(index)}
+                      className={`h-2.5 rounded-full transition-all ${
+                        index === activeSlide ? 'w-8 bg-gold-400' : 'w-2.5 bg-white/60 hover:bg-white'
+                      }`}
+                      aria-label={`Show slide ${index + 1}: ${slide.title}`}
+                      aria-current={index === activeSlide ? 'true' : undefined}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => showSlide(activeSlide - 1)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white transition hover:border-gold-400 hover:bg-gold-400 hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400 sm:h-10 sm:w-10"
+                  aria-label="Previous slide"
+                  aria-controls="hero-image-slider"
+                >
+                  <FiChevronLeft aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => showSlide(activeSlide + 1)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white transition hover:border-gold-400 hover:bg-gold-400 hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400 sm:h-10 sm:w-10"
+                  aria-label="Next slide"
+                  aria-controls="hero-image-slider"
+                >
+                  <FiChevronRight aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
