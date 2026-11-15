@@ -95,7 +95,7 @@ export default function AboutPage() {
                 </p>
                 <div className="flex gap-4">
                   <Link to="/services" className="btn-primary">Our Services</Link>
-                  <a href="/#contact" className="btn-secondary">Contact Us</a>
+                  <a href={`${import.meta.env.BASE_URL}#contact`} className="btn-secondary">Contact Us</a>
                 </div>
               </div>
 

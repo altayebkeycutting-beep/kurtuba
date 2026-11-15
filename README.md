@@ -397,6 +397,12 @@ npm run build
 }
 ```
 
+### GitHub Pages
+
+The workflow in `.github/workflows/deploy-pages.yml` builds and deploys the frontend whenever changes are pushed to `main`. Enable **Settings → Pages → Build and deployment → GitHub Actions** in the repository to publish it at `https://altayebkeycutting-beep.github.io/kurtuba/`.
+
+To enable API-backed features, add a repository Actions variable named `VITE_API_URL` with the public backend API URL, including `/api` (for example, `https://api.yourdomain.com/api`). Without it, the site is static and API-backed pages and forms will not work.
+
 ### Submitting Sitemap to Google
 
 1. Go to [Google Search Console](https://search.google.com/search-console)

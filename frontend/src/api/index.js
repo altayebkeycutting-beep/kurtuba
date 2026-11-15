@@ -6,7 +6,8 @@ const normalizeBaseUrl = (value) => {
   return trimmed.replace(/\/+$/, '');
 };
 
-const API_BASE = normalizeBaseUrl(import.meta.env.VITE_API_URL);
+const APP_BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '');
+const API_BASE = normalizeBaseUrl(import.meta.env.VITE_API_URL || `${APP_BASE_PATH}/api`);
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -33,9 +34,9 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('ks_token');
       localStorage.removeItem('ks_user');
-      if (window.location.pathname.startsWith('/admin') &&
-          window.location.pathname !== '/admin/login') {
-        window.location.href = '/admin/login';
+      if (window.location.pathname.startsWith(`${APP_BASE_PATH}/admin`) &&
+          window.location.pathname !== `${APP_BASE_PATH}/admin/login`) {
+        window.location.href = `${APP_BASE_PATH}/admin/login`;
       }
     }
     return Promise.reject(error);

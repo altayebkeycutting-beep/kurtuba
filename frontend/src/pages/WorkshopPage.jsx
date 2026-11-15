@@ -28,7 +28,7 @@ const workshopChecklist = [
   'Fast onsite service for Ajman and nearby areas',
 ];
 
-const workshopImage = '/workshop-machine.jpg';
+const workshopImage = `${import.meta.env.BASE_URL}workshop-machine.jpg`;
 
 export default function WorkshopPage() {
   const schema = JSON.stringify({

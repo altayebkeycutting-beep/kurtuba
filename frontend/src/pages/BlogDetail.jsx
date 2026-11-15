@@ -251,7 +251,7 @@ export default function BlogDetail() {
                   📞 Call Now
                 </a>
                 <a
-                  href="/#contact"
+                  href={`${import.meta.env.BASE_URL}#contact`}
                   className="mt-2 block text-center text-gold-400 text-sm hover:underline"
                 >
                   Send a Message

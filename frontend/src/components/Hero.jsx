@@ -25,25 +25,25 @@ const badges = [
 
 const slides = [
   {
-    image: '/sliderimage2.jpg',
+    image: `${import.meta.env.BASE_URL}sliderimage2.jpg`,
     alt: 'Car key duplication and programming service in Ajman, UAE',
     title: 'Car keys made easy',
     description: 'Car key duplication and programming for all makes and models.',
   },
   {
-    image: '/sliderimage1.jpg',
+    image: `${import.meta.env.BASE_URL}sliderimage1.jpg`,
     alt: 'Professional key cutting and locksmith services at Kurtuba in Ajman',
     title: 'Expert key cutting',
     description: 'Accurate house and commercial key duplication in Ajman.',
   },
   {
-    image: '/sliderimage3.jpg',
+    image: `${import.meta.env.BASE_URL}sliderimage3.jpg`,
     alt: 'Smart key and remote programming by Kurtuba Locksmith',
     title: 'Smart keys & remotes',
     description: 'Reliable smart key and remote programming from local experts.',
   },
   {
-    image: '/sliderimage4.jpg',
+    image: `${import.meta.env.BASE_URL}sliderimage4.jpg`,
     alt: 'Kurtuba Locksmith workshop and key services in Ajman',
     title: 'Your trusted locksmith',
     description: 'Friendly, fast locksmith service with quality you can trust.',

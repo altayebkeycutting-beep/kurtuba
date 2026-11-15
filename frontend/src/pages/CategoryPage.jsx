@@ -10,7 +10,7 @@ const categoryContent = {
     heading: 'Precision Locksmith Work in Ajman',
     description: 'Kurtuba Locksmith operates a dedicated workshop in Ajman with modern key-cutting machines, lock repair tools, and car key programming equipment for reliable service.',
     summary: 'Our workshop is equipped to handle key duplication, lock repair, rekeying, remote programming, and complete locksmith solutions for homes, offices, and vehicles.',
-    image: '/workshop-machine.jpg',
+    image: `${import.meta.env.BASE_URL}workshop-machine.jpg`,
     checklist: [
       'House key duplication and replacement',
       'Car key cutting and programming',
@@ -39,7 +39,7 @@ const categoryContent = {
     heading: 'Professional Key Cutting & Duplication',
     description: 'From house keys to transponder and remote keys, we provide accurate key duplication and replacement with fast turnaround times in Ajman, UAE.',
     summary: 'We cut and program keys for homes, shops, offices, and vehicles, using quality equipment and careful checking before handover.',
-    image: '/keylist.png',
+    image: `${import.meta.env.BASE_URL}keylist.png`,
     checklist: [
       'House key duplication',
       'Car key cutting and coding',
@@ -67,7 +67,7 @@ const categoryContent = {
     heading: 'Advanced Locksmith Cutting Machine Equipment',
     description: 'Kurtuba Locksmith uses professional key cutting and programming equipment to deliver accurate, efficient, and high-quality locksmith work in Ajman, UAE.',
     summary: 'Our cutting machine equipment supports key duplication, lock repair, transponder programming, and precision work for homes, offices, and vehicles.',
-    image: '/equipment.png',
+    image: `${import.meta.env.BASE_URL}equipment.png`,
     checklist: [
       'High-precision key cutting machines',
       'Transponder and smart key programming tools',
@@ -95,7 +95,7 @@ const categoryContent = {
     heading: 'Experienced Locksmith Team',
     description: 'Our team of locksmith specialists combines technical skill and customer care to provide dependable solutions for every client need.',
     summary: 'From emergency door access to key programming and lock repairs, our team works with precision and professionalism.',
-    image: '/workshop-machine.jpg',
+    image: `${import.meta.env.BASE_URL}workshop-machine.jpg`,
     checklist: [
       'Certified locksmith specialists',
       'Customer-focused support',
@@ -122,7 +122,7 @@ const categoryContent = {
     heading: 'Before & After Locksmith Results',
     description: 'See the difference between damaged, outdated, or worn lock systems and the polished, secure result after our professional service.',
     summary: 'We restore functionality and improve security across residential and commercial properties with practical locksmith solutions.',
-    image: '/workshop-machine.jpg',
+    image: `${import.meta.env.BASE_URL}workshop-machine.jpg`,
     checklist: [
       'Lock repair and replacement',
       'Door and security upgrade work',
